@@ -52,7 +52,7 @@ class Card:
 
     def eq_types(self, other):
         """Блок проверки экземпляров классов
-        на равенство class1 == class2 """
+        на равенство типов class1.type == class2.type """
         return self.type == other.type
 
 class Deck:
@@ -91,7 +91,12 @@ class Deck:
         """Блок удаления одной карты.
         Возвращает удалённую карту"""
         return self.cards.pop(0)
-
+        
+    def del_card(self, card):    	
+    	del_card_index = self.index(card)
+    	self.pop(del_card_index)
+    	return self
+    			
     def shuffle(self):
         """Блок перемешивания колоды карт"""
         random.shuffle(self.cards)
@@ -141,25 +146,39 @@ class Deck:
 ##############################################################
 
 deck = Deck()
-print(deck)
+print("Колода создана: ", deck)
 deck.shuffle()
+print("Колода перемешана: ", deck)
 
 player_1 = []
 player_2 = []
+table = {"player_1" : Deck(),
+			 "player_2" : Deck()}
+			 
+
 
 player_1 = deck.draw(6)
 player_2 = deck.draw(6)
 
-print(deck)
-print(f"Игрок 1: {player_1}")
-print(f"Игрок 2: {player_2}")
-print(player_1[0])
-print(player_1[1])
+player_1.sort()
+player_2.sort()
+
+print(f"Карты игрока 1: {player_1}")
+print(f"Карты игрока 2: {player_2}")
+#print(player_1[0])
+#print(player_1[1])
 
 # if player_1[0] > player_1[1]:
 #     print("Bigest 1: ", player_1[0])
 # if player_1[0] < player_1[1]:
 #     print("Bigest 2: ", player_1[0])
+
+def del_card (player_cards: list, card) -> list:
+    del_card_index = player_cards.index(card)
+    del_card = player_cards.pop(del_card_index)
+    
+    return player_cards, del_card
+
 
 min_card = player_1[0]
 
@@ -169,13 +188,11 @@ for card in player_1:
 
 print("Ход игрока 1 минимальной картой: ", min_card)
 
-min_card_index = player_1.index(min_card)
-player_1.pop(min_card_index)
+player_1, table["player_1"] = del_card(player_1, min_card)
 
-print(player_1)
+print("Колода игрока 1: ", player_1)
 
-#biger_card = player_2[0]
-player_2.sort()
+biger_card = None
 
 for card in player_2:
     if card > min_card:
@@ -183,4 +200,16 @@ for card in player_2:
             biger_card = card
             break
 
+if biger_card is None:
+	print("Игрок 2 проиграл")
+
+player_2, table["player_2"] = del_card(player_2, biger_card)
+			
 print("Ход игрока 2 большей картой: ", biger_card)
+print("Колода игрока 2: ", player_2)
+
+#table["player_1"].append(player_1[0])
+
+print(type(table))
+print(type(table["player_1"]))
+print(type(player_1[0]))
