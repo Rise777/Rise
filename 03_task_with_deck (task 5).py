@@ -16,6 +16,7 @@
 # Сюда отправляем решение четвертой задачи с колодой
 import random
 
+
 class Card:
     """Класс создаёт игральную карту"""
     HEARTS = 'hearts'
@@ -38,7 +39,7 @@ class Card:
         return f'{self.value}{Card.types_symbols[self.type]}'
 
     def __gt__(self, other_card):
-        """Блок проверки экземпляров классов 
+        """Блок проверки экземпляров классов
         на >, <, >=, <=, !=  class1 > class2"""
         if Deck.values.index(self.value) == Deck.values.index(other_card.value):
             return Deck.types.index(self.type) > Deck.types.index(other_card.type)
@@ -46,7 +47,7 @@ class Card:
             return Deck.values.index(self.value) > Deck.values.index(other_card.value)
 
     def __eq__(self, other):
-        """Блок проверки экземпляров классов 
+        """Блок проверки экземпляров классов
         на равенство class1 == class2 """
         return self.value == other.value and self.type == other.type
 
@@ -54,6 +55,8 @@ class Card:
         """Блок проверки экземпляров классов
         на равенство типов class1.type == class2.type """
         return self.type == other.type
+
+
 
 class Deck:
     """Класс для создания колоду карт. По умолчанию 52
@@ -66,6 +69,8 @@ class Deck:
          класса class = Class(x, y)"""
         self.cards = []
         self.index = 0
+        if not num_cards:
+            self.values = []
         if num_cards == 36:
             self.values = Deck.values[4:]
         for type in Deck.types:
@@ -91,12 +96,16 @@ class Deck:
         """Блок удаления одной карты.
         Возвращает удалённую карту"""
         return self.cards.pop(0)
-        
-    def del_card(self, card):    	
-    	del_card_index = self.index(card)
-    	self.pop(del_card_index)
-    	return self
-    			
+
+    def add_card(self,card):
+        """"""
+        return self.cards.append(card)
+
+    def del_card(self, card):
+        del_card_index = self.index(card)
+        self.pop(del_card_index)
+        return self
+
     def shuffle(self):
         """Блок перемешивания колоды карт"""
         random.shuffle(self.cards)
@@ -120,6 +129,7 @@ class Deck:
     def __getitem__(self, index):
         """Блок возвращает элемент экземпляра класса"""
         return self.cards[index]
+
 
 ##############################################################
 # Создаём 2 колоды и перемешиваем их
@@ -152,10 +162,8 @@ print("Колода перемешана: ", deck)
 
 player_1 = []
 player_2 = []
-table = {"player_1" : Deck(),
-			 "player_2" : Deck()}
-			 
-
+table = {"player_1": Deck(0),
+         "player_2": Deck(0)}
 
 player_1 = deck.draw(6)
 player_2 = deck.draw(6)
@@ -165,18 +173,20 @@ player_2.sort()
 
 print(f"Карты игрока 1: {player_1}")
 print(f"Карты игрока 2: {player_2}")
-#print(player_1[0])
-#print(player_1[1])
+
+
+# print(player_1[0])
+# print(player_1[1])
 
 # if player_1[0] > player_1[1]:
 #     print("Bigest 1: ", player_1[0])
 # if player_1[0] < player_1[1]:
 #     print("Bigest 2: ", player_1[0])
 
-def del_card (player_cards: list, card) -> list:
+def del_card(player_cards: list, card) -> list:
     del_card_index = player_cards.index(card)
     del_card = player_cards.pop(del_card_index)
-    
+
     return player_cards, del_card
 
 
@@ -188,7 +198,8 @@ for card in player_1:
 
 print("Ход игрока 1 минимальной картой: ", min_card)
 
-player_1, table["player_1"] = del_card(player_1, min_card)
+player_1 = del_card(player_1, min_card)
+table["player_1"].add_card(min_card)
 
 print("Колода игрока 1: ", player_1)
 
@@ -201,15 +212,27 @@ for card in player_2:
             break
 
 if biger_card is None:
-	print("Игрок 2 проиграл")
+    print("Игрок 2 проиграл")
+    exit()
 
-player_2, table["player_2"] = del_card(player_2, biger_card)
-			
+player_2 = del_card(player_2, biger_card)
+table["player_2"].add_card(biger_card)
+
 print("Ход игрока 2 большей картой: ", biger_card)
 print("Колода игрока 2: ", player_2)
 
-#table["player_1"].append(player_1[0])
+for deck1, deck2 in zip(table["player_1"], table["player_2"]):
+    print(deck1.value)
+    print(deck2.value)
 
-print(type(table))
-print(type(table["player_1"]))
-print(type(player_1[0]))
+
+# table["player_1"].append(player_1[0])
+test_card1 = Card("5", Card.HEARTS)
+
+print("test_card: ", test_card1.value)
+# test_card2 = Card("A", Card.DIAMONDS)
+# table["player_1"].add_card(test_card1)
+# table["player_1"].add_card(test_card2)
+# print(table)
+# print(type(table["player_1"]))
+# print(type(player_1[0]))
