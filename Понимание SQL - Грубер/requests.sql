@@ -34,3 +34,15 @@
 -- 5 --
 -- SELECT DISTINCT snum
 -- FROM Orders;
+
+-- SELECT *
+-- FROM Customers
+-- WHERE rating >= 200;
+
+-- SELECT *
+-- FROM Customers
+-- WHERE city = "San Jose" OR NOT rating > 200;
+
+SELECT *
+FROM Orders
+WHERE NOT ((odate = "10/03/1990" AND snum > 1002) OR amt > 2000.00);
