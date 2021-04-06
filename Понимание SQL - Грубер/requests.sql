@@ -1,48 +1,43 @@
--- SELECT snum, comm
--- FROM Salepeople;
--- SELECT odate, snum, onum, amt
--- FROM Orders;
--- SELECT DISTINCT snum
--- FROM Orders;
--- SELECT sname, city
--- FROM Salepeople
--- WHERE city = "London"
--- SELECT *
--- FROM Customers
--- WHERE rating = 100;
-
--- Работа с SQL
-
+-- Работа с SQL 2
 -- 1 --
--- SELECT onum, amt, odate
--- FROM Orders;
+-- SELECT amt
+-- FROM Orders
+-- WHERE amt > 1000
 
 -- 2 --
--- SELECT *
--- FROM Customers
--- WHERE snum = 1001;
+-- SELECT sname, city
+-- FROM Salepeople
+-- WHERE city = "London" AND comm > .10;
 
 -- 3 --
--- SELECT city, sname, snum, comm
--- FROM Salepeople;
+-- SELECT cname
+-- FROM Customers
+-- WHERE NOT city = "Rome" AND rating <= 100;
 
 -- 4 --
--- SELECT rating, cname
--- FROM Customers
--- WHERE city = "San Jose";
+-- SELECT *
+-- FROM Orders
+-- WHERE ( amt < 1000 OR NOT (odate = 10/03/1990 AND cnum > 2003 ));
 
 -- 5 --
--- SELECT DISTINCT snum
--- FROM Orders;
+-- SELECT *
+-- FROM Orders
+-- WHERE NOT (( odate = 10/03/1990 OR snum > 1006 ) AND amt >= 1500);
+
+-- 6 --
+-- SELECT snum, sname, city, comm
+-- FROM Salepeople
+-- WHERE ( comm > 0.12 AND comm < 0.14 );
 
 -- SELECT *
 -- FROM Customers
--- WHERE rating >= 200;
+-- WHERE snum IN (1001, 1007, 1004);
 
 -- SELECT *
--- FROM Customers
--- WHERE city = "San Jose" OR NOT rating > 200;
+-- FROM Salepeople
+-- WHERE comm BETWEEN .10 AND .12;
 
 SELECT *
-FROM Orders
-WHERE NOT ((odate = "10/03/1990" AND snum > 1002) OR amt > 2000.00);
+FROM Salepeople
+WHERE (comm BETWEEN .10 AND .12) AND NOT comm IN (.10, .12);
+
