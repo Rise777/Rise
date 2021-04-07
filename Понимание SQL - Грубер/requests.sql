@@ -120,6 +120,59 @@
 -- FROM Orders
 -- GROUP BY snum;
 
-SELECT snum, odate, MAX (amt)
-FROM Orders
-GROUP BY snum, odate;
+-- SELECT snum, odate, MAX (amt)
+-- FROM Orders
+-- GROUP BY snum, odate;
+
+-- SELECT snum, sname, city, '%', comm * 100
+-- FROM Salepeople;
+
+-- SELECT ' For ', odate, ' there are ', count (DISTINCT odate), ' orders.'
+-- FROM Orders
+-- GROUP BY odate;
+
+-- SELECT *
+-- FROM Orders
+-- ORDER BY cnum ASC;
+
+-- SELECT *
+-- FROM Orders
+-- ORDER BY cnum DESC, amt DESC;
+
+-- SELECT snum, odate, MAX (amt)
+-- FROM Orders
+-- GROUP BY snum, odate
+-- ORDER BY snum;
+
+-- SELECT sname, comm
+-- FROM Salepeople
+-- ORDER BY 2 DESC;
+
+-- SELECT snum, count (DISTINCT onum)
+-- FROM Orders
+-- GROUP BY snum
+-- ORDER BY 2 DESC;
+
+-- 1 -- При условии комисии 12%. Вывод: Номер заказа, номер продавца, сумма комисионных продавца для заказа.
+-- SELECT onum, snum, amt * 0.12, amt
+-- FROM Orders
+-- GROUP BY snum;
+
+-- 2 -- Найти наибольший рейтиг заказчика в каждом городе.
+-- Формат вывода: For the city (city), the highest rating is: (rating)
+-- SELECT 'For the city ', city, ', the highest rating is: ', max (rating)
+-- FROM Customers
+-- WHERE city NOT NULL
+-- GROUP BY city;
+
+-- 3 -- Вывести список заказчиков в нисходящем порядке.
+-- Формат вывода: Имя заказчика (cname), номер заказчика (cnum), 
+-- SELECT cname, cnum, rating
+-- FROM Customers
+-- ORDER BY rating DESC;
+
+-- 4 -- Вывести общие заказы на каждый день. Номера заказов в нисходящем порядке.
+-- SELECT odate, onum
+-- FROM Orders
+-- GROUP BY onum
+-- ORDER BY onum DESC;
